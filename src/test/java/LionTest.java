@@ -34,4 +34,29 @@ public class LionTest {
         boolean actualHaveMane = lion.doesHaveMane();
         assertEquals(expectedHaveMane,actualHaveMane);
     }
+    @Test
+    public void constructorTest() throws Exception{
+        Lion lion = new Lion("Самец", feline);
+        boolean expectedHaveMane = true;
+        boolean actualHaveMane = lion.doesHaveMane();
+        assertEquals(expectedHaveMane,actualHaveMane);
+    }
+    @Test
+    public void constructorTestInvalidSex() throws Exception{
+        try {
+            Lion lion = new Lion("InvalidSex", feline);
+        } catch (Exception e) {
+            assertEquals("Используйте допустимые значения пола животного - самей или самка", e.getMessage());
+        }
+    }
+    @Test
+    public void getFoodTestException() throws Exception{
+        try {
+            Lion lion = new Lion("Самец", feline);
+            Mockito.when(feline.getFood("Хищник")).thenThrow(new Exception("Ошибка получения списка пищи"));
+            lion.getFood();
+        } catch (Exception e) {
+            assertEquals("Ошибка получения списка пищи", e.getMessage());
+        }
+    }
 }
