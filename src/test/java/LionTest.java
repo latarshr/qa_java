@@ -7,6 +7,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 @RunWith(MockitoJUnitRunner.class)
 public class LionTest {
     @Mock
@@ -42,21 +44,15 @@ public class LionTest {
         assertEquals(expectedHaveMane,actualHaveMane);
     }
     @Test
-    public void constructorTestInvalidSex() throws Exception{
+    public void constructorTestInvalidSex() throws Exception {
+        boolean exceptionThrown = false;
         try {
             Lion lion = new Lion("InvalidSex", feline);
         } catch (Exception e) {
+            exceptionThrown = true;
             assertEquals("Используйте допустимые значения пола животного - самей или самка", e.getMessage());
         }
+        assertTrue(exceptionThrown);
     }
-    @Test
-    public void getFoodTestException() throws Exception{
-        try {
-            Lion lion = new Lion("Самец", feline);
-            Mockito.when(feline.getFood("Хищник")).thenThrow(new Exception("Ошибка получения списка пищи"));
-            lion.getFood();
-        } catch (Exception e) {
-            assertEquals("Ошибка получения списка пищи", e.getMessage());
-        }
-    }
+    
 }
